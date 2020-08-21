@@ -34,10 +34,11 @@ const config = {
     this.auth.currentUser.updatePassword(password);
 
     // *** User API ***
+ //This route does not work yet
+  user = uid => this.db.collection('users').doc(`${uid}`).get();
  
-  user = uid => this.db.collection('users').doc(`${uid}`);
- 
-  users = () => this.db.collection('users');
-  }
+  //THIS ROUTE WORKS
+  users = () => this.db.collection('users').get();
+}
 
   export default Firebase;
