@@ -20,8 +20,8 @@ const config = {
           this.auth = app.auth();
           this.db = app.firestore();
       }
-      doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+    doCreateUserWithEmailAndPassword = (email, password) =>
+      this.auth.createUserWithEmailAndPassword(email, password);
  
     doSignInWithEmailAndPassword = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);
@@ -31,7 +31,7 @@ const config = {
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
     
     doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+      this.auth.currentUser.updatePassword(password);
 
     // *** User API ***
  //This route does not work yet
