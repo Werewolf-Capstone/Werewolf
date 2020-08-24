@@ -3,21 +3,7 @@ import * as ROLES from "../../constants/roles";
 import { withFirebase } from "../Firebase";
 // import "firebase/firestore";
 const Admin = (props) => {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = { users: [], isloading: true };
-  //   }
-  //   componentDidMount() {
-  //     // this.setState({ isloading: true });
-  //     const userList = [];
-  //     this.props.firebase.users().then((snapshot) =>
-  //       snapshot.forEach((doc) => {
-  //         userList.push(doc.data().username);
-  //       })
-  //     );
-  //     this.setState({ users: userList, isloading: false });
-  //   }
-  //   componentDidUpdate() {}
+ 
   const [users, setUsers] = useState(null);
 //   const [loading, setLoading] = useState(true);
  
@@ -30,6 +16,7 @@ const Admin = (props) => {
         } else {
             let userList = []
             snapshot.forEach( user => {
+                // console.log(user.data())
                 userList.push({ key: user.id, ...user.data() })
             })
             setUsers(userList)
@@ -48,7 +35,7 @@ const Admin = (props) => {
         displayList = <li>NO USERS FOUND</li>
     } else {
         displayList = users.map(user => {
-        return <li key={user.key}> {user.username}</li>
+        return <li key={user.key}><div>Username: {user.username} </div> <div>Email: {user.email}</div></li>
         })
     }
 
@@ -56,23 +43,10 @@ const Admin = (props) => {
     <div>
       <h1>Admin</h1>
       <p>Restricted area! Only users with the admin role are authorized.</p>
-  <ol>{displayList}</ol>
+  <ul>{displayList}</ul>
     </div>
   );
 };
 // const condition = authUser =>
 //   authUser && !!authUser.roles[ROLES.ADMIN];
 export default withFirebase(Admin);
-
-//OLD SEMI-WORKING USE EFFECT
-// setLoading(true);
-//     const userList = [];
-//     props.firebase.users()
-//     .then((snapshot) => 
-//       snapshot.forEach((doc) => {
-//         userList.push(doc.data().username);
-//       })
-//     );
-//     console.log(userList);
-//     setLoading(false);
-//     setUsers(userList);

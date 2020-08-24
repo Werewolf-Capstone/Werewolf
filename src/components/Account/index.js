@@ -13,7 +13,7 @@ const AccountPage = () => (
           <PasswordChangeForm />
         </div>
       )}
-    </AuthUserContext.Consumer>    
+    </AuthUserContext.Consumer>
   </div>
 );
 
