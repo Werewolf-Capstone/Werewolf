@@ -4,6 +4,7 @@ import { Container, Button, Box } from "@material-ui/core";
 import { sizing } from "@material-ui/system";
 import SignIn from "../SignIn";
 import { AuthUserContext } from "../Session";
+import MaxWidthDialog from "../Rules";
 
 const Lobby = () => (
   <div>
@@ -16,16 +17,24 @@ const Lobby = () => (
 const GameRoom = () => {
   return (
     <div>
-      <h1>Landing</h1>
+      <h1>Lobby</h1>
       <Container maxWidth="sm">
         <Box display="flex" flexDirection="column" width="60%">
           <Box display="flex" flexDirection="row" width="100%">
-            <Button variant="outlined" color="secondary" width="100%">
+            {/* <Button
+              variant="outlined"
+              color="secondary"
+              width="100%"
+              onClick={() => {
+                CustomizedDialogs();
+              }}
+            >
               Game Rules
-            </Button>
+            </Button> */}
+            <MaxWidthDialog />
           </Box>
           <Box display="flex" flexDirection="row" width="100%">
-            <Button variant="outlined" color="secondary">
+            <Button variant="outlined" color="secondary" disabled>
               Start
             </Button>
           </Box>
