@@ -6,13 +6,17 @@ import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
+import { TextField, Container, Button, Box } from "@material-ui/core";
+
 const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <PasswordForgetLink />
-    <SignUpLink />
-  </div>
+  <Container>
+    <div>
+      <h1>SignIn</h1>
+      <SignInForm />
+      <PasswordForgetLink />
+      <SignUpLink />
+    </div>
+  </Container>
 );
 
 const initialState = {
@@ -54,27 +58,36 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <Container>
+        <form onSubmit={this.onSubmit}>
+          <TextField
+            name="email"
+            value={email}
+            variant="outlined"
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+          <TextField
+            name="password"
+            value={password}
+            variant="outlined"
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+          />
+          <Button
+            disabled={isInvalid}
+            type="submit"
+            variant="outlined"
+            color="primary"
+          >
+            Sign In
+          </Button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
+      </Container>
     );
   }
 }

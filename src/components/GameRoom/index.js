@@ -15,22 +15,14 @@ const Lobby = () => (
 );
 
 const GameRoom = () => {
+  const roomId = Math.floor(Math.random() * 10 + 1);
+
   return (
     <div>
       <h1>Lobby</h1>
       <Container maxWidth="sm">
         <Box display="flex" flexDirection="column" width="60%">
           <Box display="flex" flexDirection="row" width="100%">
-            {/* <Button
-              variant="outlined"
-              color="secondary"
-              width="100%"
-              onClick={() => {
-                CustomizedDialogs();
-              }}
-            >
-              Game Rules
-            </Button> */}
             <MaxWidthDialog />
           </Box>
           <Box display="flex" flexDirection="row" width="100%">
