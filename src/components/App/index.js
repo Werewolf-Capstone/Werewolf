@@ -28,7 +28,7 @@ const App = () => (
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={Account} />
       <Route path={ROUTES.ADMIN} component={Admin} />
-      <Route path={ROUTES.GAME_ROOM} component={GameRoom} />
+      <Route path={ROUTES.GAME_ROOM + "/:roomId"} component={GameRoom} />
     </div>
   </Router>
 );

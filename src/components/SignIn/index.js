@@ -4,9 +4,8 @@ import { withRouter } from "react-router-dom";
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
-import * as ROUTES from "../../constants/routes";
 
-import { TextField, Container, Button, Box } from "@material-ui/core";
+import { TextField, Container, Button } from "@material-ui/core";
 
 const SignInPage = () => (
   <Container>
@@ -39,7 +38,7 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...initialState });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.go(0);
       })
       .catch((error) => {
         this.setState({ error });

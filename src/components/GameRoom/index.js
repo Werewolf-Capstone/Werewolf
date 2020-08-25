@@ -1,7 +1,5 @@
 import React from "react";
-//import Button from "@material-ui/core/Button";
 import { Container, Button, Box } from "@material-ui/core";
-import { sizing } from "@material-ui/system";
 import SignIn from "../SignIn";
 import { AuthUserContext } from "../Session";
 import MaxWidthDialog from "../Rules";
@@ -15,8 +13,6 @@ const Lobby = () => (
 );
 
 const GameRoom = () => {
-  const roomId = Math.floor(Math.random() * 10 + 1);
-
   return (
     <div>
       <h1>Lobby</h1>

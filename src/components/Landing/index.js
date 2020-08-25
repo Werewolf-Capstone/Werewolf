@@ -1,7 +1,15 @@
 import React from "react";
 import { TextField, Container, Button, Box } from "@material-ui/core";
+import { withFirebase } from "../Firebase";
+import { withRouter } from "react-router-dom";
 
-const Landing = () => {
+const Landing = (props) => {
+  async function handleOnClick() {
+    const roomId = await props.firebase.createRoom();
+    console.log("Room ID in index.js: ", roomId);
+    props.history.push(`/GameRoom/${roomId}`);
+  }
+
   return (
     <div>
       <h1>Landing</h1>
@@ -12,7 +20,7 @@ const Landing = () => {
               variant="outlined"
               color="secondary"
               width="100%"
-              href="../GameRoom"
+              onClick={handleOnClick}
             >
               New Game
             </Button>
@@ -29,4 +37,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default withRouter(withFirebase(Landing));
