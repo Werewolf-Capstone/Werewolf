@@ -1,21 +1,5 @@
 import React from "react";
 import { TextField, Container, Button, Box } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import GameRoom from "../GameRoom";
-import SignIn from "../SignIn";
-import * as ROUTES from "../../constants/routes";
-import { AuthUserContext } from "../Session";
-
-const onNewGameClick = () => {
-  return (
-    <AuthUserContext.Consumer>
-      {(authUser) =>
-        authUser ? <GameRoom roomId={uuidv4()} /> : <SignIn roomId={uuidv4()} />
-      }
-    </AuthUserContext.Consumer>
-  );
-};
 
 const Landing = () => {
   return (
@@ -28,7 +12,7 @@ const Landing = () => {
               variant="outlined"
               color="secondary"
               width="100%"
-              onClick={() => onNewGameClick()}
+              href="../GameRoom"
             >
               New Game
             </Button>

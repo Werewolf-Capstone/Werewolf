@@ -2,6 +2,16 @@ import React from "react";
 //import Button from "@material-ui/core/Button";
 import { Container, Button, Box } from "@material-ui/core";
 import { sizing } from "@material-ui/system";
+import SignIn from "../SignIn";
+import { AuthUserContext } from "../Session";
+
+const Lobby = () => (
+  <div>
+    <AuthUserContext.Consumer>
+      {(authUser) => (authUser ? <GameRoom /> : <SignIn />)}
+    </AuthUserContext.Consumer>
+  </div>
+);
 
 const GameRoom = () => {
   return (
@@ -25,4 +35,4 @@ const GameRoom = () => {
   );
 };
 
-export default GameRoom;
+export default Lobby;
