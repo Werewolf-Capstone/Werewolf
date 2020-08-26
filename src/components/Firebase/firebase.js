@@ -72,9 +72,10 @@ class Firebase {
   };
 
   // *** User API ***
+  //Get specific user
   user = (uid) => this.db.collection("users").doc(`${uid}`);
 
-  //THIS ROUTE WORKS
+  //Get all users
   users = () => this.db.collection("users").get();
 }
 
