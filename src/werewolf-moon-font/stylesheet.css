@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'werewolf_moonregular';
+  src: url('werewolf-moon.regular-webfont.woff2') format('woff2'),
+    url('werewolf-moon.regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
