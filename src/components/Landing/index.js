@@ -16,7 +16,7 @@ class Landing extends React.Component {
 
   async handleNewGame() {
     const roomId = await this.props.firebase.createRoom();
-    this.props.history.push(`/GameRoom/${roomId}`);
+    this.props.history.push(`/WaitingRoom/${roomId}`);
   }
 
   handleOnChange = (event) => {
@@ -27,7 +27,7 @@ class Landing extends React.Component {
 
   // should we do error checking for rooms that don't exist when entering full URL manually?
   async handleJoinGame(event) {
-    this.props.history.push(`/GameRoom/${this.state.roomId}`);
+    this.props.history.push(`/WaitingRoom/${this.state.roomId}`);
   }
 
   render() {
