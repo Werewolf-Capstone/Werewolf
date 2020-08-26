@@ -1,14 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 
-export const Participant = ({ userStreamTuple, handleVillagerVoteButton }) => {
-  console.log('Inside participant component', userStreamTuple);
+export const Participant = ({
+  userStreamTuple,
+  handleVillagerVoteButton,
+  night,
+  ourDocId,
+  role,
+}) => {
+  console.log('Inside participant component', userStreamTuple[1]);
   const videoRef = useRef();
 
   useEffect(() => {
     videoRef.current.srcObject = userStreamTuple[1];
   }, []);
 
-  //userStreamTuple[peerjsId, streamId]
+  //userStreamTuple[peerjsId, stream object]
   return (
     <div className='participant'>
       <h3>{userStreamTuple[0]}</h3>
@@ -19,3 +25,11 @@ export const Participant = ({ userStreamTuple, handleVillagerVoteButton }) => {
     </div>
   );
 };
+
+//if night:
+//      if role === 'villager':
+//          userStreamTuple[1].active = false
+
+// also add conditional button generation
+
+// WW , Seer, Medic

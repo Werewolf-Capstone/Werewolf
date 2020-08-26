@@ -3,23 +3,25 @@ import Peer from 'peerjs';
 import { Participant } from '../Participant';
 import * as firebase from 'firebase';
 import { withFirebase } from '../Firebase';
+import { addVideoStream, connectToNewUser } from './videoFunctions';
 
 class GameRoom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       myVideo: document.createElement('video'),
-      refCounter: 1,
-      ourId: '',
+      ourPeerId: '',
+      ourDocId: '',
       gameId: '7xz6yB0zX9QUDlOPzyKZ',
       userStreamArr: [],
       role: '',
+      night: true,
     };
 
     this.peers = new Set();
 
-    this.connectToNewUser = this.connectToNewUser.bind(this);
-    this.addVideoStream = this.addVideoStream.bind(this);
+    this.connectToNewUser = connectToNewUser.bind(this);
+    this.addVideoStream = addVideoStream.bind(this);
     this.handleMajority = this.handleMajority.bind(this);
     this.handleNightToDay = this.handleNightToDay.bind(this);
     this.handleDayToNight = this.handleDayToNight.bind(this);
@@ -37,7 +39,6 @@ class GameRoom extends React.Component {
 
     console.log(data.data());
 
-    let game = data.data();
     const myPeer = new Peer(undefined, {
       host: '/',
       port: '3001',
@@ -49,7 +50,7 @@ class GameRoom extends React.Component {
         audio: true,
       })
       .then((stream) => {
-        this.addVideoStream(this.state.myVideo, stream, this.state.ourId);
+        this.addVideoStream(this.state.myVideo, stream, this.state.ourPeerId);
         myPeer.on('call', (call) => {
           call.answer(stream);
           console.log('call is ', call);
@@ -67,7 +68,7 @@ class GameRoom extends React.Component {
             let data = snapshot.docs;
 
             data.map((doc) => {
-              if (this.state.ourId !== doc.data().userId) {
+              if (this.state.ourPeerId !== doc.data().userId) {
                 this.connectToNewUser(doc.data().userId, stream, myPeer);
               }
             });
@@ -83,19 +84,20 @@ class GameRoom extends React.Component {
             if (!game.gameStarted) return;
 
             if (game.Night) {
-              this.handleNightToDay(game, this.state.ourId);
+              this.handleNightToDay(game, this.state.ourPeerId);
             } else {
-              this.handleDayToNight(game, this.state.ourId);
+              this.handleDayToNight(game, this.state.ourPeerId);
             }
           });
       });
     myPeer.on('open', async (id) => {
-      this.setState({ ourId: id });
+      this.setState({ ourPeerId: id });
 
       const user = await this.props.firebase.db
         .collection('users')
         .add({ userId: id, currentGame: this.state.gameId });
-      console.log('what is newUser', user.id);
+
+      this.setState({ ourDocId: user.id });
 
       const roomsRef = this.props.firebase.db
         .collection('rooms')
@@ -103,38 +105,10 @@ class GameRoom extends React.Component {
       roomsRef.update({
         players: firebase.firestore.FieldValue.arrayUnion(user.id),
       });
-
-      console.log('what is our peerjs ID', id);
     });
   }
-  connectToNewUser(userId, stream, myPeer) {
-    const call = myPeer.call(userId, stream);
-    if (!call) {
-      return;
-    }
-    const video = document.createElement('video');
-    call.on('stream', (userVideoStream) => {
-      if (userId !== this.state.ourId) {
-        if (!this.peers.has(call.peer)) {
-          this.addVideoStream(video, userVideoStream, userId);
-        }
-      }
-    });
-    call.on('close', () => {
-      video.remove();
-    });
-  }
-  async addVideoStream(video, stream, userId) {
-    let newTuple = [userId, stream];
 
-    if (this.state.userStreamArr.includes(newTuple)) return;
-    await this.setState({
-      userStreamArr: [...this.state.userStreamArr, newTuple],
-    });
-    console.log('adding a user stream to', newTuple);
-  }
-
-  handleNightToDay(game, ourId) {
+  handleNightToDay(game, ourPeerId) {
     if (game.villagers.length === 1) {
       this.assignRolesAndStartGame(game);
     }
@@ -166,15 +140,16 @@ class GameRoom extends React.Component {
     game.villagersChoice = '';
     //updating game state in DB
 
-    console.log('DURING NIGHT, ABOUT TO GO TO DAY', game);
     this.props.firebase.db
       .collection('rooms')
       .doc(this.state.gameId)
       .update(game);
+
+    this.setState({ night: false });
   }
 
   // going from day to night
-  handleDayToNight(game, ourId) {
+  handleDayToNight(game, ourPeerId) {
     this.handleMajority(game);
     if (game.majorityReached) {
       if (game.villagers.includes(game.villagersChoice)) {
@@ -204,6 +179,8 @@ class GameRoom extends React.Component {
       .collection('rooms')
       .doc(this.state.gameId)
       .update(game);
+
+    this.setState({ night: true });
   }
 
   async handleVillagerVoteButton(peerjsId) {
@@ -403,6 +380,9 @@ class GameRoom extends React.Component {
             <Participant
               userStreamTuple={userStream}
               handleVillagerVoteButton={this.handleVillagerVoteButton}
+              ourDocId={this.state.ourDocId}
+              night={this.state.night}
+              role={this.state.role}
             />
           );
         })}
