@@ -47,7 +47,27 @@ class Firebase {
   // }
 
   createRoom = async () => {
-    const room = await this.db.collection("rooms").add({});
+    const room = await this.db.collection("rooms").add({
+      Night: false,
+      checkMajority: false,
+      checkMedic: false,
+      checkSeer: false,
+      checkWerewolf: false,
+      dead: [],
+      gameStarted: false,
+      majorityReached: false,
+      medic: "",
+      medicChoice: "",
+      players: ["sentinel"],
+      seer: "",
+      seerChoice: "",
+      villagers: [],
+      villagersChoice: "",
+      votesVillagers: [],
+      votesWerewolves: [],
+      werewolves: [],
+      werewolvesChoice: ""
+    });
     return room.id;
   };
 

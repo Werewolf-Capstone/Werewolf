@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Button, Box } from "@material-ui/core";
 import SignIn from "../SignIn";
 import { AuthUserContext } from "../Session";
-import MaxWidthDialog from "../Rules";
+import Rules from "../Rules";
 
 const Lobby = () => (
   <div>
@@ -19,7 +19,7 @@ const GameRoom = () => {
       <Container maxWidth="sm">
         <Box display="flex" flexDirection="column" width="60%">
           <Box display="flex" flexDirection="row" width="100%">
-            <MaxWidthDialog />
+            <Rules />
           </Box>
           <Box display="flex" flexDirection="row" width="100%">
             <Button variant="outlined" color="secondary" disabled>
