@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function MaxWidthDialog() {
+export default function Rules() {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState("xl");

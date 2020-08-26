@@ -47,14 +47,35 @@ class Firebase {
   // }
 
   createRoom = async () => {
-    const room = await this.db.collection("rooms").add({});
+    const room = await this.db.collection("rooms").add({
+      Night: false,
+      checkMajority: false,
+      checkMedic: false,
+      checkSeer: false,
+      checkWerewolf: false,
+      dead: [],
+      gameStarted: false,
+      majorityReached: false,
+      medic: "",
+      medicChoice: "",
+      players: [],
+      seer: "",
+      seerChoice: "",
+      villagers: ["sentinel"],
+      villagersChoice: "",
+      votesVillagers: [],
+      votesWerewolves: [],
+      werewolves: [],
+      werewolvesChoice: ""
+    });
     return room.id;
   };
 
   // *** User API ***
+  //Get specific user
   user = (uid) => this.db.collection("users").doc(`${uid}`);
 
-  //THIS ROUTE WORKS
+  //Get all users
   users = () => this.db.collection("users").get();
 }
 
