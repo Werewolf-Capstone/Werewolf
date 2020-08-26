@@ -11,7 +11,7 @@ class GameRoom extends React.Component {
       myVideo: document.createElement('video'),
       refCounter: 1,
       ourId: '',
-      gameId: 'R6j4yKwXGM20TO5zayga',
+      gameId: '7xz6yB0zX9QUDlOPzyKZ',
       userStreamArr: [],
       role: '',
     };
@@ -21,10 +21,10 @@ class GameRoom extends React.Component {
     this.connectToNewUser = this.connectToNewUser.bind(this);
     this.addVideoStream = this.addVideoStream.bind(this);
     this.handleMajority = this.handleMajority.bind(this);
-    this.handleNightTransition = this.handleNightTransition.bind(this);
-    this.handleDayTransition = this.handleDayTransition.bind(this);
+    this.handleNightToDay = this.handleNightToDay.bind(this);
+    this.handleDayToNight = this.handleDayToNight.bind(this);
     this.assignRolesAndStartGame = this.assignRolesAndStartGame.bind(this);
-
+    this.handleVillagerVoteButton = this.handleVillagerVoteButton.bind(this);
     this.handleWerewolfVote = this.handleWerewolfVote.bind(this);
     this.handleMedic = this.handleMedic.bind(this);
     this.handleSeer = this.handleSeer.bind(this);
@@ -83,9 +83,9 @@ class GameRoom extends React.Component {
             if (!game.gameStarted) return;
 
             if (game.Night) {
-              this.handleNightTransition(game, this.state.ourId);
+              this.handleNightToDay(game, this.state.ourId);
             } else {
-              this.handleDayTransition(game, this.state.ourId);
+              this.handleDayToNight(game, this.state.ourId);
             }
           });
       });
@@ -133,7 +133,8 @@ class GameRoom extends React.Component {
     });
     console.log('adding a user stream to', newTuple);
   }
-  handleNightTransition(game, ourId) {
+
+  handleNightToDay(game, ourId) {
     if (game.villagers.length === 1) {
       this.assignRolesAndStartGame(game);
     }
@@ -147,7 +148,9 @@ class GameRoom extends React.Component {
         game.villagers = game.villagers.filter((villager) => {
           return villager !== game.werewolvesChoice;
         });
-        game.dead.push(game.werewolvesChoice);
+        if (game.werewolvesChoice !== '') {
+          game.dead.push(game.werewolvesChoice);
+        }
       }
     } //outer IF
     else {
@@ -170,7 +173,8 @@ class GameRoom extends React.Component {
       .update(game);
   }
 
-  handleDayTransition(game, ourId) {
+  // going from day to night
+  handleDayToNight(game, ourId) {
     this.handleMajority(game);
     if (game.majorityReached) {
       if (game.villagers.includes(game.villagersChoice)) {
@@ -201,6 +205,27 @@ class GameRoom extends React.Component {
       .doc(this.state.gameId)
       .update(game);
   }
+
+  async handleVillagerVoteButton(peerjsId) {
+    const userDocId = await this.props.firebase.db
+      .collection('users')
+      .where('userId', '==', peerjsId)
+      .get();
+
+    let votesVillagers = await this.props.firebase.db
+      .collection('rooms')
+      .doc(this.state.gameId)
+      .get();
+
+    votesVillagers = votesVillagers.data().votesVillagers;
+    votesVillagers.push(userDocId.docs[0].id);
+
+    await this.props.firebase.db
+      .collection('rooms')
+      .doc(this.state.gameId)
+      .update({ votesVillagers: votesVillagers });
+  }
+
   async handleWerewolfVote(game) {
     let players = await this.props.firebase.db
       .collection('rooms')
@@ -374,7 +399,12 @@ class GameRoom extends React.Component {
     return (
       <div>
         {this.state.userStreamArr.map((userStream) => {
-          return <Participant userStreamTuple={userStream} />;
+          return (
+            <Participant
+              userStreamTuple={userStream}
+              handleVillagerVoteButton={this.handleVillagerVoteButton}
+            />
+          );
         })}
       </div>
     );
