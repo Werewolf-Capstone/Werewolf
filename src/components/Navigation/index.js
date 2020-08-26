@@ -1,9 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SignOutButton from "../SignOut";
-
-import * as ROUTES from "../../constants/routes";
-import { AuthUserContext } from "../Session";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SignOutButton from '../SignOut';
+import * as ROUTES from '../../constants/routes';
+import { AuthUserContext } from '../Session';
 
 const Navigation = () => (
   <div>
@@ -18,7 +17,7 @@ const NavigationAuth = () => (
     <li>
       <Link to={ROUTES.LANDING}>Landing</Link>
     </li>
-    <li>
+    {/* <li>
       <Link to={ROUTES.HOME}>Home</Link>
     </li>
     <li>
@@ -29,7 +28,7 @@ const NavigationAuth = () => (
     </li>
     <li>
       <Link to={ROUTES.GAME_ROOM}>Lobby</Link>
-    </li>
+    </li> */}
     <li>
       <SignOutButton />
     </li>

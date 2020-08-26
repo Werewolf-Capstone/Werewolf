@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField, Container, Button, Box } from '@material-ui/core';
 import { withFirebase } from '../Firebase';
 import { withRouter } from 'react-router-dom';
@@ -33,24 +33,57 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <h1>Landing</h1>
-        <Container maxWidth='sm'>
-          <Box display='flex' flexDirection='column' width='60%'>
-            <Box display='flex' flexDirection='row' width='100%'>
+        <Container id='landing-page-container' display='flex' maxWidth='sm'>
+          <Box
+            display='flex'
+            width='100%'
+            justifyContent='center'
+            alignItems='center'
+          >
+            <h1 id='werewolf-title'>Werewolf</h1>
+          </Box>
+          <Box
+            id='landing-page-buttons-box'
+            display='flex'
+            flexDirection='column'
+            justifyContent='center'
+            alignItems='stretch'
+            width='100%'
+            margin='50%'
+          >
+            <Box
+              id='new-game-button-box'
+              display='flex'
+              flexDirection='row'
+              width='100%'
+              justifyContent='center'
+              alignItems='center'
+              margin='5%'
+            >
               <Button
                 variant='outlined'
                 color='secondary'
+                height='100%'
                 width='100%'
                 onClick={this.handleNewGame}
               >
                 New Game
               </Button>
             </Box>
-            <Box display='flex' flexDirection='row' width='100%'>
+            <Box
+              id='join-game-button-box'
+              display='flex'
+              flexDirection='row'
+              height='100%'
+              width='100%'
+              alignItems='center'
+            >
               <form onSubmit={this.handleJoinGame}>
                 <TextField
-                  variant='outlined'
+                  id='join-game-textfield'
+                  variant='filled'
                   label='Join Game ID'
+                  color='secondary'
                   value={this.state.roomId}
                   onChange={this.handleOnChange}
                 />
