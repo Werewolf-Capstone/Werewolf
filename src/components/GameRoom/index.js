@@ -33,14 +33,7 @@ class GameRoom extends React.Component {
   }
   async componentDidMount() {
 
-    const data = await this.props.firebase.db.collection('rooms').doc(this.state.gameId).get()
-
-    console.log(data.data())
-
-  
-
-
-    navigator.mediaDevices
+      navigator.mediaDevices
       .getUserMedia({
         video: true,
         audio: true,
@@ -81,6 +74,7 @@ class GameRoom extends React.Component {
       });
     this.state.myPeer.on('open', (id) => {
       this.setState({ ourId: id });
+      //Does this need to be a users UPDATE instead of an ADD???
       this.props.firebase.db.collection('users').add({ userId: id, currentGame: this.state.gameId });
     });
   }
@@ -301,11 +295,11 @@ class GameRoom extends React.Component {
         console.log("werewolves are ", werewolves)
         werewolves.push(user)
       }
-      if(i == 2){
+      if(i === 2){
         this.props.firebase.db.collection('rooms').doc(this.state.gameId).update({seer: user})
         villagers.push(user)
       }
-      if(i == 3){
+      if(i === 3){
         this.props.firebase.db.collection('rooms').doc(this.state.gameId).update({medic: user})
         villagers.push(user)
       }
