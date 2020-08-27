@@ -231,7 +231,7 @@ export async function handleMedic() {
 }
 
 /**
- * Randomly assigns roles to users, and subsequently updates the 'gameStarted' boolean in the 'rooms' database
+ * Randomly assigns roles to users, updates the roles in firestore, and subsequently updates the 'gameStarted' boolean in the 'rooms' database
  * @param {*} game - game object gotten from the snapshot of the 'rooms' database once the game starts
  */
 export async function assignRolesAndStartGame(game) {
@@ -246,8 +246,13 @@ export async function assignRolesAndStartGame(game) {
   console.log('what is users in assign roles', users);
 
   let werewolves = [];
-
   let villagers = [];
+
+  //shuffle users array
+  for (let i = users.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [users[i], users[j]] = [users[j], users[i]];
+  }
 
   users.forEach((doc, i) => {
     console.log('what does my user look like', doc.id);
@@ -256,22 +261,19 @@ export async function assignRolesAndStartGame(game) {
     if (i < 2) {
       console.log('werewolves are ', werewolves);
       werewolves.push(user);
-    }
-    if (i === 2) {
+    } else if (i === 2) {
       this.props.firebase.db
         .collection('rooms')
         .doc(this.state.gameId)
         .update({ seer: user });
       villagers.push(user);
-    }
-    if (i === 3) {
+    } else if (i === 3) {
       this.props.firebase.db
         .collection('rooms')
         .doc(this.state.gameId)
         .update({ medic: user });
       villagers.push(user);
-    }
-    if (i > 3) {
+    } else {
       villagers.push(user);
     }
   });
