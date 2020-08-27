@@ -184,6 +184,8 @@ export async function handleWerewolfVote(game) {
         .collection('rooms')
         .doc(this.state.gameId)
         .update({ werewolvesChoice: player, checkWerewolf: true });
+    // also have to update local state
+    await this.setState({checkWerewolf: true})
     }
   }
 }
@@ -206,6 +208,8 @@ export async function handleSeer() {
       .collection('rooms')
       .doc(this.state.gameId)
       .update({ checkSeer: true });
+    // also have to update local state
+    await this.setState({checkSeer: true})
   }
 }
 
@@ -227,6 +231,9 @@ export async function handleMedic() {
       .collection('rooms')
       .doc(this.state.gameId)
       .update({ checkMedic: true });
+
+    // also have to update local state
+    await this.setState({checkMedic: true})
   }
 }
 
@@ -234,7 +241,7 @@ export async function handleMedic() {
  * Randomly assigns roles to users, updates the roles in firestore, and subsequently updates the 'gameStarted' boolean in the 'rooms' database
  * @param {*} game - game object gotten from the snapshot of the 'rooms' database once the game starts
  */
-export async function assignRolesAndStartGame(game) {
+export async function assignRolesAndStartGame(game, localUserId) {
   console.log('In assignRoles');
   let users = await this.props.firebase.db
     .collection('users')
@@ -291,4 +298,30 @@ export async function assignRolesAndStartGame(game) {
     .collection('rooms')
     .doc(this.state.gameId)
     .update({ gameStarted: true });
+
+  const gameState = this.props.firebase.db
+  .collection('rooms')
+  .doc(this.state.gameId).get()
 }
+
+//search for localUsersRole
+
+
+if(gameState.villagers.includes(localUserId)){
+  this.setState({role: "villager"})
+}
+if(gameState.werewolves.includes(localUserId)){
+  this.setState({role: "werewolf"})
+}
+if(gameState.seer === localUserId){
+  this.setState({role: "seer"})
+}
+if(gameState.medic === localUserId){
+  this.setState({role: "medic"})
+}
+
+
+
+
+
+

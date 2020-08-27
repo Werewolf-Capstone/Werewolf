@@ -25,6 +25,9 @@ class GameRoom extends React.Component {
       userStreamArr: [],
       role: '',
       night: true,
+      finishedWerewolf: false,
+      finishedSeer: false,
+      finishedMedic: false
     };
 
     this.peers = new Set();
