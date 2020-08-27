@@ -8,8 +8,8 @@ export function handleNightToDay(game) {
     this.assignRolesAndStartGame(game);
   }
   this.handleWerewolfVote(game); // checks if werewolves have agreed on a vote, and sets in our DB
-  this.handleSeer();
-  this.handleMedic();
+  // this.handleSeer();
+  // this.handleMedic();
   if (game.checkWerewolf && game.checkSeer && game.checkMedic) {
     if (game.werewolvesChoice === game.medicChoice) {
       game.werewolvesChoice = '';
@@ -163,7 +163,7 @@ export async function handleWerewolfVoteButton(userPeerId) {
     .update({ votesWerewolves: votesWerewolves});
 }
 
-export async function handleSeer(userPeerId) {
+export async function handleSeerCheckButton(userPeerId) {
   const userDocId = await this.props.firebase.db
     .collection('users')
     .where('userId', '==', userPeerId)
@@ -184,7 +184,7 @@ export async function handleSeer(userPeerId) {
       .doc(this.state.gameId)
       .update({ checkSeer: true});
 }
-export async function handleMedic(userPeerId) {
+export async function handleMedicSaveButton(userPeerId) {
   const userDocId = await this.props.firebase.db
     .collection('users')
     .where('userId', '==', userPeerId)
@@ -240,6 +240,7 @@ export async function handleWerewolfVote(game) {
         .update({ werewolvesChoice: player, checkWerewolf: true });
     // also have to update local state
     await this.setState({checkWerewolf: true})
+    await this.setState({werewolfChoice: player})
     }
   }
 }

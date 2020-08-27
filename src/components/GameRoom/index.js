@@ -27,6 +27,7 @@ class GameRoom extends React.Component {
       role: '',
       night: true,
       checkWereWolf: false,
+      werewolfChoice: '',
       checkSeer: false,
       checkMedic: false,
       didSeerHit: ''
@@ -133,6 +134,7 @@ class GameRoom extends React.Component {
               checkWerewolf={this.state.checkWerewolf}
               checkSeer={this.state.checkSeer}
               checkMedic={this.state.checkMedic}
+              werewolfChoice={this.state.werewolfChoice}
             />
           );
         })}

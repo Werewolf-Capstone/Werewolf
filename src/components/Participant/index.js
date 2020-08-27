@@ -9,6 +9,8 @@ export const Participant = ({
   checkSeer,
   checkMedic,
   localRole,
+  werewolfChoice,
+  didSeerHit
 }) => {
   const videoRef = useRef();
   const [userPeerId, stream] = userStreamTuple;
@@ -32,11 +34,31 @@ export const Participant = ({
   //need to put in logic for closing video if disconnection
   if(!night){
     return (
-      <div className='participant'>
+      <div>
+        <h2>{werewolfChoice} was killed during the night</h2>
+        <div className='participant'>
         <h3>{userPeerId}</h3>
         <video ref={videoRef} autoPlay={videoOn} muted={videoOn} />
         <button onClick={() => handleVillagerVoteButton(userPeerId)}>Kill</button>
       </div>
+
+      </div>
+      
+    );
+  }
+  if(!night && localRole === 'seer'){
+    return (
+      <div>
+        <h2>{werewolfChoice} was killed during the night</h2>
+        <h2>{didSeerHit} is a werewolf</h2>
+        <div className='participant'>
+        <h3>{userPeerId}</h3>
+        <video ref={videoRef} autoPlay={videoOn} muted={videoOn} />
+        <button onClick={() => handleVillagerVoteButton(userPeerId)}>Kill</button>
+      </div>
+
+      </div>
+      
     );
   }
   else if(night && !checkWerewolf && localRole === 'werewolf'){
