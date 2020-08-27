@@ -25,9 +25,9 @@ class GameRoom extends React.Component {
       userStreamArr: [],
       role: '',
       night: true,
-      finishedWerewolf: false,
-      finishedSeer: false,
-      finishedMedic: false
+      checkWereWolf: false,
+      checkSeer: false,
+      checkMedic: false
     };
 
     this.peers = new Set();
@@ -119,12 +119,16 @@ class GameRoom extends React.Component {
         {this.state.userStreamArr.map((userStream) => {
           return (
             <Participant
+              //individualParticipantRole needed to customize who sees who instead of all/nothing
               key={this.state.ourDocId}
               userStreamTuple={userStream}
               handleVillagerVoteButton={this.handleVillagerVoteButton}
               ourDocId={this.state.ourDocId}
               night={this.state.night}
               role={this.state.role}
+              checkWerewolf={this.state.checkWerewolf}
+              checkSeer={this.state.checkSeer}
+              checkMedic={this.state.checkMedic}
             />
           );
         })}
