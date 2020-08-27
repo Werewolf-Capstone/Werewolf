@@ -40,7 +40,7 @@ class Landing extends React.Component {
             justifyContent='center'
             alignItems='center'
           >
-            <h1 id='werewolf-title'>Werewolf</h1>
+            <h1 id='werewolf-title'>WEREWOLF</h1>
           </Box>
           <Box
             id='landing-page-buttons-box'

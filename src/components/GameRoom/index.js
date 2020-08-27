@@ -43,8 +43,9 @@ class GameRoom extends React.Component {
 
   async componentDidMount() {
     const myPeer = new Peer(undefined, {
-      host: '/',
-      port: '3001',
+      secure: true,
+      host: 'https://werewolf-capstone.web.app/',
+      port: '443',
     });
 
     navigator.mediaDevices
