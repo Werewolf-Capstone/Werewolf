@@ -10,6 +10,7 @@ import {
   handleMajority,
   handleVillagerVoteButton,
   handleWerewolfVote,
+  handleWerewolfVoteButton,
   handleSeer,
   handleMedic,
   assignRolesAndStartGame,
@@ -27,7 +28,8 @@ class GameRoom extends React.Component {
       night: true,
       checkWereWolf: false,
       checkSeer: false,
-      checkMedic: false
+      checkMedic: false,
+      didSeerHit: ''
     };
 
     this.peers = new Set();
@@ -39,6 +41,7 @@ class GameRoom extends React.Component {
     this.handleDayToNight = handleDayToNight.bind(this);
     this.assignRolesAndStartGame = assignRolesAndStartGame.bind(this);
     this.handleVillagerVoteButton = handleVillagerVoteButton.bind(this);
+    this.handleWerewolfVoteButton = handleWerewolfVoteButton.bind(this);
     this.handleWerewolfVote = handleWerewolfVote.bind(this);
     this.handleMedic = handleMedic.bind(this);
     this.handleSeer = handleSeer.bind(this);
@@ -123,9 +126,10 @@ class GameRoom extends React.Component {
               key={this.state.ourDocId}
               userStreamTuple={userStream}
               handleVillagerVoteButton={this.handleVillagerVoteButton}
+              handleWerewolfVoteButton={this.handleWerewolfVoteButton}
               ourDocId={this.state.ourDocId}
               night={this.state.night}
-              role={this.state.role}
+              localRole={this.state.role}
               checkWerewolf={this.state.checkWerewolf}
               checkSeer={this.state.checkSeer}
               checkMedic={this.state.checkMedic}

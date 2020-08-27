@@ -140,7 +140,61 @@ export async function handleVillagerVoteButton(userPeerId) {
   await this.props.firebase.db
     .collection('rooms')
     .doc(this.state.gameId)
-    .update({ votesVillagers });
+    .update({ votesVillagers: votesVillagers });
+}
+
+export async function handleWerewolfVoteButton(userPeerId) {
+  const userDocId = await this.props.firebase.db
+    .collection('users')
+    .where('userId', '==', userPeerId)
+    .get();
+
+  let votesWerewolves = await this.props.firebase.db
+    .collection('rooms')
+    .doc(this.state.gameId)
+    .get();
+
+  votesWerewolves = votesWerewolves.data().votesWerewolves;
+  votesWerewolves.push(userDocId.docs[0].id);
+
+  await this.props.firebase.db
+    .collection('rooms')
+    .doc(this.state.gameId)
+    .update({ votesWerewolves: votesWerewolves});
+}
+
+export async function handleSeer(userPeerId) {
+  const userDocId = await this.props.firebase.db
+    .collection('users')
+    .where('userId', '==', userPeerId)
+    .get();
+
+  let werewolves = await this.props.firebase.db
+    .collection('rooms')
+    .doc(this.state.gameId)
+    .get();
+
+  werewolves = werewolves.data().werewolves;
+  if (werewolves.includes(userDocId.docs[0].id)){
+      this.setState({didSeerHit: userDocId.docs[0].id})
+  }
+
+  await this.props.firebase.db
+      .collection('rooms')
+      .doc(this.state.gameId)
+      .update({ checkSeer: true});
+}
+export async function handleMedic(userPeerId) {
+  const userDocId = await this.props.firebase.db
+    .collection('users')
+    .where('userId', '==', userPeerId)
+    .get();
+  this.setState({checkMedic: true})
+
+  await this.props.firebase.db
+    .collection('rooms')
+    .doc(this.state.gameId)
+    .update({ checkMedic: true, medicChoice: userDocId.docs[0].id });
 }
 
 /**
