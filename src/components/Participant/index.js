@@ -7,29 +7,20 @@ export const Participant = ({
   ourDocId,
   role,
 }) => {
-  console.log('Inside participant component', userStreamTuple[1]);
   const videoRef = useRef();
+  const [userPeerId, stream] = userStreamTuple;
 
   useEffect(() => {
-    videoRef.current.srcObject = userStreamTuple[1];
+    videoRef.current.srcObject = stream;
   }, []);
 
-  //userStreamTuple[peerjsId, stream object]
+  //need to put in logic for closing video if disconnection
+
   return (
     <div className='participant'>
-      <h3>{userStreamTuple[0]}</h3>
+      <h3>{userPeerId}</h3>
       <video ref={videoRef} autoPlay={true} muted={true} />
-      <button onClick={() => handleVillagerVoteButton(userStreamTuple[0])}>
-        Kill
-      </button>
+      <button onClick={() => handleVillagerVoteButton(userPeerId)}>Kill</button>
     </div>
   );
 };
-
-//if night:
-//      if role === 'villager':
-//          userStreamTuple[1].active = false
-
-// also add conditional button generation
-
-// WW , Seer, Medic

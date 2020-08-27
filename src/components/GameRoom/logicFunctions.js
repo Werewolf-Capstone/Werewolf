@@ -1,4 +1,9 @@
-export function handleNightToDay(game, ourPeerId) {
+/**
+ * Handles the transition from night to day by checking if werewolves, seer, and medic all voted; kills off the selected player only if the werewolves' choice is not the same as the medic's choice, and updates the game status
+ * @param {*} game - game object gotten from the snapshot of the 'rooms' document
+ */
+
+export function handleNightToDay(game) {
   if (game.villagers.length === 1) {
     this.assignRolesAndStartGame(game);
   }
@@ -38,7 +43,12 @@ export function handleNightToDay(game, ourPeerId) {
   this.setState({ night: false });
 }
 
-export function handleDayToNight(game, ourPeerId) {
+/**
+ * Handles the transition from day to night by filtering out the player killed, checking if they were a villager or werewolf, resetting all votes, and updating game status
+ * @param {*} game - game object gotten from the snapshot of the 'rooms' document
+ */
+
+export function handleDayToNight(game) {
   this.handleMajority(game);
   if (game.majorityReached) {
     if (game.villagers.includes(game.villagersChoice)) {
@@ -72,6 +82,10 @@ export function handleDayToNight(game, ourPeerId) {
   this.setState({ night: true });
 }
 
+/**
+ * Checks for a majority vote on all players killing one person; once found, updates the villagers' choice which will be used to announce the player has been killed when day turns to night.
+ * @param {*} game - game object gotten from the snapshot of the 'rooms' document once the game starts
+ */
 export async function handleMajority(game) {
   //end goal to update villageGers
 
@@ -97,7 +111,6 @@ export async function handleMajority(game) {
 
   for (let player of Object.keys(votingObject)) {
     if (votingObject[player] > Math.floor(totalPlayers / 2)) {
-      // this.props.firebase.db.collection('rooms').doc(this.state.gameId).villagersChoice.update(player) // find real way to do this
       this.props.firebase.db
         .collection('rooms')
         .doc(this.state.gameId)
@@ -106,10 +119,14 @@ export async function handleMajority(game) {
   }
 }
 
-export async function handleVillagerVoteButton(peerjsId) {
+/**
+ * Handler function which updates a villager's vote based on the user they are choosing to kill
+ * @param {*} userPeerId - the user's PeerJS ID (that is, the user a villager is trying to kill)
+ */
+export async function handleVillagerVoteButton(userPeerId) {
   const userDocId = await this.props.firebase.db
     .collection('users')
-    .where('userId', '==', peerjsId)
+    .where('userId', '==', userPeerId)
     .get();
 
   let votesVillagers = await this.props.firebase.db
@@ -123,9 +140,13 @@ export async function handleVillagerVoteButton(peerjsId) {
   await this.props.firebase.db
     .collection('rooms')
     .doc(this.state.gameId)
-    .update({ votesVillagers: votesVillagers });
+    .update({ votesVillagers });
 }
 
+/**
+ * Checks for a majority vote on werewolves killing one person; once found, updates the werewolves' choice which will be used to announce the player has been killed when night turns to day.
+ * @param {*} game - game object gotten from the snapshot of the 'rooms' document
+ */
 export async function handleWerewolfVote(game) {
   let players = await this.props.firebase.db
     .collection('rooms')
@@ -133,6 +154,7 @@ export async function handleWerewolfVote(game) {
     .get();
 
   players = players.data().werewolves;
+  // ^^^ do we need this code above with 'players' ?
 
   const totalPlayers = game.werewolves.length;
 
@@ -166,6 +188,9 @@ export async function handleWerewolfVote(game) {
   }
 }
 
+/**
+ * Checks if the seer voted, and (if so) subsequently updates the 'checkSeer' boolean in the 'rooms' database
+ */
 export async function handleSeer() {
   const player = await this.props.firebase.db
     .collection('rooms')
@@ -176,7 +201,7 @@ export async function handleSeer() {
 
   if (seerChoice === '') return;
   else {
-    console.log('setting seerCheck to true');
+    console.log('setting checkSeer to true');
     this.props.firebase.db
       .collection('rooms')
       .doc(this.state.gameId)
@@ -184,6 +209,9 @@ export async function handleSeer() {
   }
 }
 
+/**
+ * Checks if the medic voted, and (if so) subsequently updates the 'checkMedic' boolean in the 'rooms' database
+ */
 export async function handleMedic() {
   const player = await this.props.firebase.db
     .collection('rooms')
@@ -194,7 +222,7 @@ export async function handleMedic() {
 
   if (medicChoice === '') return;
   else {
-    console.log('setting seerCheck to true');
+    console.log('setting checkMedic to true');
     this.props.firebase.db
       .collection('rooms')
       .doc(this.state.gameId)
@@ -202,6 +230,10 @@ export async function handleMedic() {
   }
 }
 
+/**
+ * Randomly assigns roles to users, and subsequently updates the 'gameStarted' boolean in the 'rooms' database
+ * @param {*} game - game object gotten from the snapshot of the 'rooms' database once the game starts
+ */
 export async function assignRolesAndStartGame(game) {
   console.log('In assignRoles');
   let users = await this.props.firebase.db
@@ -217,7 +249,7 @@ export async function assignRolesAndStartGame(game) {
 
   let villagers = [];
 
-  users.map((doc, i) => {
+  users.forEach((doc, i) => {
     console.log('what does my user look like', doc.id);
     let user = doc.id;
 

@@ -19,7 +19,6 @@ class GameRoom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myVideo: document.createElement('video'),
       ourPeerId: '',
       ourDocId: '',
       gameId: '7xz6yB0zX9QUDlOPzyKZ',
@@ -43,13 +42,6 @@ class GameRoom extends React.Component {
   }
 
   async componentDidMount() {
-    const data = await this.props.firebase.db
-      .collection('rooms')
-      .doc(this.state.gameId)
-      .get();
-
-    console.log(data.data());
-
     const myPeer = new Peer(undefined, {
       host: '/',
       port: '3001',
@@ -61,14 +53,12 @@ class GameRoom extends React.Component {
         audio: true,
       })
       .then((stream) => {
-        this.addVideoStream(this.state.myVideo, stream, this.state.ourPeerId);
+        this.addVideoStream(stream, this.state.ourPeerId);
         myPeer.on('call', (call) => {
           call.answer(stream);
-          console.log('call is ', call);
-          const video = document.createElement('video');
           call.on('stream', (userVideoStream) => {
             if (!this.peers.has(call.peer)) {
-              this.addVideoStream(video, userVideoStream, call.peer);
+              this.addVideoStream(userVideoStream, call.peer);
             }
             this.peers.add(call.peer);
           });
@@ -78,14 +68,14 @@ class GameRoom extends React.Component {
           .onSnapshot(async (snapshot) => {
             let data = snapshot.docs;
 
-            data.map((doc) => {
+            //doc.data().userId is the user's PeerJS ID
+            data.forEach((doc) => {
               if (this.state.ourPeerId !== doc.data().userId) {
                 this.connectToNewUser(doc.data().userId, stream, myPeer);
               }
             });
           });
         //create firebase method to look up individual game
-        console.log('what is our game ID', this.state.gameId);
         this.props.firebase.db
           .collection('rooms')
           .doc(this.state.gameId)
@@ -95,12 +85,13 @@ class GameRoom extends React.Component {
             if (!game.gameStarted) return;
 
             if (game.Night) {
-              this.handleNightToDay(game, this.state.ourPeerId);
+              this.handleNightToDay(game);
             } else {
-              this.handleDayToNight(game, this.state.ourPeerId);
+              this.handleDayToNight(game);
             }
           });
       });
+
     myPeer.on('open', async (id) => {
       this.setState({ ourPeerId: id });
 
@@ -119,19 +110,13 @@ class GameRoom extends React.Component {
     });
   }
 
-  handleClick(e) {
-    this.props.firebase.db
-      .collection('rooms')
-      .doc(this.state.gameId)
-      .update({ gameStarted: true });
-  }
-
   render() {
     return (
       <div>
         {this.state.userStreamArr.map((userStream) => {
           return (
             <Participant
+              key={this.state.ourDocId}
               userStreamTuple={userStream}
               handleVillagerVoteButton={this.handleVillagerVoteButton}
               ourDocId={this.state.ourDocId}
