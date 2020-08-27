@@ -1,17 +1,26 @@
 import React, { useRef, useEffect } from 'react';
 
-export const Participant = ({ userStreamTuple }) => {
-  console.log('Inside participant component', userStreamTuple);
+export const Participant = ({
+  userStreamTuple,
+  handleVillagerVoteButton,
+  night,
+  ourDocId,
+  role,
+}) => {
   const videoRef = useRef();
+  const [userPeerId, stream] = userStreamTuple;
 
   useEffect(() => {
-    videoRef.current.srcObject = userStreamTuple[1];
+    videoRef.current.srcObject = stream;
   }, []);
+
+  //need to put in logic for closing video if disconnection
 
   return (
     <div className='participant'>
-      <h3>{userStreamTuple[0]}</h3>
+      <h3>{userPeerId}</h3>
       <video ref={videoRef} autoPlay={true} muted={true} />
+      <button onClick={() => handleVillagerVoteButton(userPeerId)}>Kill</button>
     </div>
   );
 };
