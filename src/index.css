@@ -10,7 +10,7 @@
 
 html {
   background: url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/474910/1f98a31d957af52b03b4972fb8d46d0722de52da.jpg);
-  background-size: cover;
+  background-size: contain;
 }
 
 body {

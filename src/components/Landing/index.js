@@ -33,7 +33,7 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <Container id='landing-page-container' display='flex' maxWidth='sm'>
+        <Container id='landing-page-container' display='flex' maxWidth='sm' flexDirection='column' justifyContent='center'>
           <Box
             display='flex'
             width='100%'
