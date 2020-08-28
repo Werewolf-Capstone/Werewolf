@@ -1,8 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 export const Participant = ({
   userStreamTuple,
   handleVillagerVoteButton,
+  handleSeerCheckButton,
+  handleMedicSaveButton,
   night,
   ourDocId,
   checkWerewolf,
@@ -29,7 +31,7 @@ export const Participant = ({
       setVideoOn(false)
     }
         
-  }, [role,night, checkWerewolf]);
+  }, [localRole,night, checkWerewolf]);
 
   //need to put in logic for closing video if disconnection
   if(!night){

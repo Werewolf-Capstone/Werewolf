@@ -11,6 +11,8 @@ import {
   handleVillagerVoteButton,
   handleWerewolfVote,
   handleWerewolfVoteButton,
+  handleSeerCheckButton,
+  handleMedicSaveButton,
   handleSeer,
   handleMedic,
   assignRolesAndStartGame,
@@ -43,6 +45,8 @@ class GameRoom extends React.Component {
     this.assignRolesAndStartGame = assignRolesAndStartGame.bind(this);
     this.handleVillagerVoteButton = handleVillagerVoteButton.bind(this);
     this.handleWerewolfVoteButton = handleWerewolfVoteButton.bind(this);
+    this.handleSeerCheckButton = handleSeerCheckButton.bind(this);
+    this.handleMedicSaveButton = handleMedicSaveButton.bind(this);
     this.handleWerewolfVote = handleWerewolfVote.bind(this);
     this.handleMedic = handleMedic.bind(this);
     this.handleSeer = handleSeer.bind(this);
@@ -51,7 +55,7 @@ class GameRoom extends React.Component {
   async componentDidMount() {
     const myPeer = new Peer(undefined, {
       host: '/',
-      port: '3001',
+      port: 3001
     });
 
     navigator.mediaDevices
@@ -100,6 +104,9 @@ class GameRoom extends React.Component {
       });
 
     myPeer.on('open', async (id) => {
+
+      console.log("peerjs id is,", id)
+
       this.setState({ ourPeerId: id });
 
       const user = await this.props.firebase.db
@@ -128,6 +135,8 @@ class GameRoom extends React.Component {
               userStreamTuple={userStream}
               handleVillagerVoteButton={this.handleVillagerVoteButton}
               handleWerewolfVoteButton={this.handleWerewolfVoteButton}
+              handleSeerCheckButton={this.handleSeerCheckButton}
+              handleMedicCheckButton={this.handleMedicCheckButton}
               ourDocId={this.state.ourDocId}
               night={this.state.night}
               localRole={this.state.role}

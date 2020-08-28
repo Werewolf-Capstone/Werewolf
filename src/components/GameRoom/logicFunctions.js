@@ -357,7 +357,7 @@ export async function assignRolesAndStartGame(game, localUserId) {
   const gameState = this.props.firebase.db
   .collection('rooms')
   .doc(this.state.gameId).get()
-}
+
 
 //search for localUsersRole
 
@@ -373,6 +373,8 @@ if(gameState.seer === localUserId){
 }
 if(gameState.medic === localUserId){
   this.setState({role: "medic"})
+}
+
 }
 
 
