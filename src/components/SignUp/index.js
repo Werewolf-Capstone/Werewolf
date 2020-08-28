@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import { TextField, Container, Button, Box } from "@material-ui/core";
 
 const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
+  <Container>
+    <h1>SIGN UP</h1>
     <SignUpForm />
-  </div>
+  </Container>
 );
 
 const initialState = {
@@ -27,16 +28,16 @@ class SignUpFormBase extends Component {
 
   onSubmit = (event) => {
     const { username, email, passwordOne } = this.state;
-    
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
         // Create a user in Firestore
-        console.log("authUser", authUser)
+        console.log("authUser", authUser);
         return this.props.firebase.user(authUser.user.uid).set({
           username,
           email,
-          currentGame: ""
+          currentGame: "",
         });
       })
       .then((authUser) => {
@@ -65,47 +66,69 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Username"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-
-        {error && <p>{error.message}</p>}
+        <Box display="flex" justifyContent="center" marginTop="1%">
+          <TextField
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Username"
+            className="input"
+          />
+        </Box>
+        <Box display="flex" justifyContent="center" marginTop="1%">
+          <TextField
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+            className="input"
+          />
+        </Box>
+        <Box display="flex" justifyContent="center" marginTop="1%">
+          <TextField
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+            className="input"
+          />
+        </Box>
+        <Box display="flex" justifyContent="center" marginTop="1%">
+          <TextField
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm Password"
+            className="input"
+          />
+        </Box>
+        <Box display="flex" justifyContent="center" marginTop="5%">
+          <Button
+            disabled={isInvalid}
+            type="submit"
+            color="secondary"
+            variant="outlined"
+          >
+            Sign Up
+          </Button>
+        </Box>
+        <Box display="flex" justifyContent="center">
+          {error && <p className="ptext">{error.message}</p>}
+        </Box>
       </form>
     );
   }
 }
 
 const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+  <p className="ptext">
+    <Box display="flex" justifyContent="center">
+      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    </Box>
   </p>
 );
 

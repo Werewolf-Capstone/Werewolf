@@ -1,13 +1,13 @@
-import React from 'react';
-import { TextField, Container, Button, Box } from '@material-ui/core';
-import { withFirebase } from '../Firebase';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { TextField, Container, Button, Box } from "@material-ui/core";
+import { withFirebase } from "../Firebase";
+import { withRouter } from "react-router-dom";
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      roomId: '',
+      roomId: "",
     };
     this.handleNewGame = this.handleNewGame.bind(this);
     this.handleJoinGame = this.handleJoinGame.bind(this);
@@ -33,65 +33,85 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <Container id='landing-page-container' display='flex' maxWidth='sm' flexDirection='column' justifyContent='center'>
+        <Container
+          id="landing-page-container"
+          display="flex"
+          maxWidth="sm"
+          flexDirection="column"
+          justifyContent="center"
+        >
           <Box
-            display='flex'
-            width='100%'
-            justifyContent='center'
-            alignItems='center'
+            display="flex"
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
           >
-            <h1 id='werewolf-title'>WEREWOLF</h1>
+            <h1 id="werewolf-title">WEREWOLF</h1>
           </Box>
           <Box
-            id='landing-page-buttons-box'
-            display='flex'
-            flexDirection='column'
-            justifyContent='center'
-            alignItems='stretch'
-            width='100%'
-            margin='50%'
+            id="landing-page-buttons-box"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            // alignItems="stretch"
+            width="100%"
+            // margin="50%"
           >
             <Box
-              id='new-game-button-box'
-              display='flex'
-              flexDirection='row'
-              width='100%'
-              justifyContent='center'
-              alignItems='center'
-              margin='5%'
+              id="new-game-button-box"
+              display="flex"
+              flexDirection="column"
+              width="100%"
+              // justifyContent="right"
+              alignItems="center"
+              marginTop="20%"
+              marginBottom="15%"
             >
               <Button
-                variant='outlined'
-                color='secondary'
-                height='100%'
-                width='100%'
+                variant="outlined"
+                color="secondary"
+                // height="100%"
+                // width="100%"
+                // justifyContent="center"
+                size="large"
                 onClick={this.handleNewGame}
               >
                 New Game
               </Button>
             </Box>
-            <Box
-              id='join-game-button-box'
-              display='flex'
-              flexDirection='row'
-              height='100%'
-              width='100%'
-              alignItems='center'
+
+            <Container
+              justifyContent="center"
+              display="flex"
+              flex-direction="column"
             >
               <form onSubmit={this.handleJoinGame}>
-                <TextField
-                  id='join-game-textfield'
-                  variant='filled'
-                  label='Join Game ID'
-                  color='secondary'
-                  value={this.state.roomId}
-                  onChange={this.handleOnChange}
-                />
-                <Button type='submit' variant='outlined' color='secondary'>
-                  Join Game
-                </Button>
+                <Box
+                  id="join-game-button-box"
+                  display="flex"
+                  // flexDirection="row"
+                  // height="100%"
+                  // width="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <TextField
+                    id="join-game-textfield"
+                    variant="filled"
+                    label="Join Game ID"
+                    color="secondary"
+                    value={this.state.roomId}
+                    onChange={this.handleOnChange}
+                    className="input"
+                  />
+                </Box>
+                <Box display="flex" justifyContent="center" paddingTop="2%">
+                  <Button type="submit" variant="outlined" color="secondary">
+                    Join Game
+                  </Button>
+                </Box>
               </form>
-            </Box>
+            </Container>
           </Box>
         </Container>
       </div>

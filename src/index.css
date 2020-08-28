@@ -1,22 +1,22 @@
 @font-face {
-  font-family: 'werewolf_moonregular';
-  src: url('./werewolf-moon-font/werewolf-moon.regular-webfont.woff2')
-      format('woff2'),
-    url('./werewolf-moon-font/werewolf-moon.regular-webfont.woff')
-      format('woff');
+  font-family: "werewolf_moonregular";
+  src: url("./werewolf-moon-font/werewolf-moon.regular-webfont.woff2")
+      format("woff2"),
+    url("./werewolf-moon-font/werewolf-moon.regular-webfont.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 html {
   background: url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/474910/1f98a31d957af52b03b4972fb8d46d0722de52da.jpg);
-  background-size: contain;
+  background-size: 100%;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,7 +27,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -43,4 +43,27 @@ code {
 
 #join-game-textfield {
   color: white;
+}
+
+.input {
+  background-color: grey;
+}
+
+h1 {
+  color: #f50057;
+  font-family: werewolf_moonregular;
+  text-align: center;
+}
+
+/* #button {
+  font-family: werewolf_moonregular;
+  color: #f50057;
+} */
+
+.ptext {
+  color: #f50057;
+}
+
+a {
+  color: #f50057;
 }

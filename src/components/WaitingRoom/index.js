@@ -15,7 +15,7 @@ const Lobby = () => (
 const WaitingRoom = () => {
   return (
     <div>
-      <h1>Lobby</h1>
+      <h1>WAITING ROOM</h1>
       <Container maxWidth="sm">
         <Box display="flex" flexDirection="column" width="60%">
           <Box display="flex" flexDirection="row" width="100%">
