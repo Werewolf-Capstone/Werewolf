@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import { TextField, Container, Button, Box } from "@material-ui/core";
 
 const PasswordForgetPage = () => (
   <div>
@@ -68,7 +69,9 @@ class PasswordForgetFormBase extends Component {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+    <Box display="flex" justifyContent="center" marginTop="10%">
+      <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+    </Box>
   </p>
 );
 

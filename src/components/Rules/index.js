@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 export default function Rules() {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
-  const [maxWidth] = React.useState("xl");
+  const [maxWidth] = React.useState("md");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,8 +31,10 @@ export default function Rules() {
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
       >
-        <DialogTitle id="max-width-dialog-title">Rules</DialogTitle>
-        <DialogContent>
+        <DialogTitle id="max-width-dialog-title" className="dialog">
+          {/* RULES */}
+        </DialogTitle>
+        <DialogContent className="dialog">
           <DialogContentText>
             The game proceeds in alternating night and day rounds. beginning
             with nighttime.
@@ -128,7 +130,7 @@ export default function Rules() {
             are even. (Example: Two werewolves and two villagers)
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className="dialog">
           <Button onClick={handleClose} color="secondary">
             Close
           </Button>
