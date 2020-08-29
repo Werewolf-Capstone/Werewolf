@@ -6,7 +6,7 @@ import { TextField, Container, Button, Box } from "@material-ui/core";
 
 const SignUpPage = () => (
   <Container>
-    <h1>SIGN UP</h1>
+    <h1 className="fadeIn animated">SIGN UP</h1>
     <SignUpForm />
   </Container>
 );
@@ -73,7 +73,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             type="text"
             placeholder="Username"
-            className="input"
+            className="input fadeIn animated"
           />
         </Box>
         <Box display="flex" justifyContent="center" marginTop="1%">
@@ -83,7 +83,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             type="text"
             placeholder="Email Address"
-            className="input"
+            className="input fadeIn animated"
           />
         </Box>
         <Box display="flex" justifyContent="center" marginTop="1%">
@@ -93,7 +93,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             type="password"
             placeholder="Password"
-            className="input"
+            className="input fadeIn animated"
           />
         </Box>
         <Box display="flex" justifyContent="center" marginTop="1%">
@@ -103,7 +103,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             type="password"
             placeholder="Confirm Password"
-            className="input"
+            className="input fadeIn animated"
           />
         </Box>
         <Box display="flex" justifyContent="center" marginTop="5%">
@@ -126,7 +126,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p className="ptext">
-    <Box display="flex" justifyContent="center">
+    <Box display="flex" justifyContent="center" className="fadeIn animated">
       Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </Box>
   </p>

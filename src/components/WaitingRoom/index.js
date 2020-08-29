@@ -7,7 +7,17 @@ import Rules from "../Rules";
 const Lobby = () => (
   <div>
     <AuthUserContext.Consumer>
-      {(authUser) => (authUser ? <WaitingRoom /> : <SignIn />)}
+      {(authUser) =>
+        authUser ? (
+          <div>
+            <WaitingRoom />
+          </div>
+        ) : (
+          <div className="fadeIn1 animated">
+            <SignIn />
+          </div>
+        )
+      }
     </AuthUserContext.Consumer>
   </div>
 );
@@ -15,7 +25,7 @@ const Lobby = () => (
 const WaitingRoom = () => {
   return (
     <div>
-      <h1>WAITING ROOM</h1>
+      <h1 className="fadeIn1 animated">WAITING ROOM</h1>
       <Container maxWidth="sm">
         <Box display="flex" flexDirection="column" width="60%">
           <Box display="flex" flexDirection="row" width="100%">

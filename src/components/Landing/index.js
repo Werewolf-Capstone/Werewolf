@@ -46,7 +46,9 @@ class Landing extends React.Component {
             justifyContent="center"
             alignItems="center"
           >
-            <h1 id="werewolf-title">WEREWOLF</h1>
+            <h1 id="werewolf-title" className="fadeInDown animated">
+              WEREWOLF
+            </h1>
           </Box>
           <Box
             id="landing-page-buttons-box"
@@ -75,6 +77,7 @@ class Landing extends React.Component {
                 // justifyContent="center"
                 size="large"
                 onClick={this.handleNewGame}
+                className="fadeIn3 animated"
               >
                 New Game
               </Button>
@@ -94,6 +97,7 @@ class Landing extends React.Component {
                   // width="100%"
                   alignItems="center"
                   justifyContent="center"
+                  className="fadeIn3 animated"
                 >
                   <TextField
                     id="join-game-textfield"
@@ -102,11 +106,16 @@ class Landing extends React.Component {
                     color="secondary"
                     value={this.state.roomId}
                     onChange={this.handleOnChange}
-                    className="input"
+                    className="input fadeIn3 animated"
                   />
                 </Box>
                 <Box display="flex" justifyContent="center" paddingTop="2%">
-                  <Button type="submit" variant="outlined" color="secondary">
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="secondary"
+                    className="fadeIn3 animated"
+                  >
                     Join Game
                   </Button>
                 </Box>

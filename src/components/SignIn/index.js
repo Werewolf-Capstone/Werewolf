@@ -11,9 +11,9 @@ const SignInPage = () => (
   <Container
     display="flex"
     maxWidth="sm"
-    // flexDirection="column"
     justifyContent="center"
     alignItems="center"
+    className="fadeIn animated"
   >
     <h1>SIGN IN</h1>
     <SignInForm />
@@ -76,7 +76,7 @@ class SignInFormBase extends Component {
               onChange={this.onChange}
               type="text"
               placeholder="Email Address"
-              className="input"
+              className="input fadeIn animated"
             />
           </Box>
           <Box display="flex" justifyContent="center" margin="1%">
@@ -87,7 +87,7 @@ class SignInFormBase extends Component {
               onChange={this.onChange}
               type="password"
               placeholder="Password"
-              className="input"
+              className="input fadeIn animated"
             />
           </Box>
           <Box display="flex" justifyContent="center" marginTop="5%">
@@ -97,12 +97,17 @@ class SignInFormBase extends Component {
               variant="outlined"
               color="secondary"
               id="button"
+              className="fadeIn animated"
             >
               Sign In
             </Button>
           </Box>
-          <Box display="flex" justifyContent="center">
-            {error && <p className="ptext">{error.message}</p>}
+          <Box
+            display="flex"
+            justifyContent="center"
+            className="fadeIn animated"
+          >
+            {error && <p className="ptext fadeIn animated">{error.message}</p>}
           </Box>
         </form>
       </Container>
