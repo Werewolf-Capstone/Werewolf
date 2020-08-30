@@ -15,6 +15,8 @@ const SignInPage = () => (
     alignItems="center"
     className="fadeIn animated"
   >
+    {document.getElementById("background").classList.add("menu")}
+    {document.getElementById("background").classList.remove("day")}
     <h1>SIGN IN</h1>
     <SignInForm />
     <PasswordForgetLink />

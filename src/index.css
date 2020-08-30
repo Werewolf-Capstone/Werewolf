@@ -8,9 +8,15 @@
   font-style: normal;
 }
 
-html {
+.menu {
   background: url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/474910/1f98a31d957af52b03b4972fb8d46d0722de52da.jpg);
   background-size: 100%;
+}
+
+.day {
+  background: url(https://pro2-bar-s3-cdn-cf.myportfolio.com/bf7272a8d53eb8c0faec1188fca2a40a/199f56d6-5f7f-4e64-a3d4-ae0ecb76be2f_rw_3840.jpg?h=0a2a21d4f6701d13ba3863c587e0dc7c);
+  background-size: 100%;
+  background-size: cover;
 }
 
 body {
@@ -55,11 +61,6 @@ h1 {
   text-align: center;
 }
 
-/* #button {
-  font-family: werewolf_moonregular;
-  color: #f50057;
-} */
-
 .ptext {
   color: #f50057;
 }
@@ -78,7 +79,7 @@ a {
   font-family: werewolf_moonregular;
 }
 
-/*Animation*/
+/*Animations*/
 
 .animated {
   -webkit-animation-duration: 1s;
@@ -156,4 +157,8 @@ a {
   animation-delay: 1s;
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
 }

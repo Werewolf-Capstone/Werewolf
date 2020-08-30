@@ -32,7 +32,9 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="defaultBackground">
+        {document.getElementById("background").classList.add("menu")}
+        {document.getElementById("background").classList.remove("day")}
         <Container
           id="landing-page-container"
           display="flex"

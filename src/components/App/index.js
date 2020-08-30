@@ -15,23 +15,28 @@ import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 
 const App = () => (
-  <Router>
-    <div>
-      <Navigation />
+  <div>
+    <Router>
+      <div>
+        <Navigation />
 
-      <hr />
+        <hr />
 
-      <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route path={ROUTES.SIGN_UP} component={SignUp} />
-      <Route path={ROUTES.SIGN_IN} component={SignIn} />
-      <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-      <Route path={ROUTES.HOME} component={HomePage} />
-      <Route path={ROUTES.ACCOUNT} component={Account} />
-      <Route path={ROUTES.ADMIN} component={Admin} />
-      <Route path={ROUTES.GAME_ROOM} component={GameRoom} />
-      <Route path={ROUTES.WAITING_ROOM + "/:roomId"} component={WaitingRoom} />
-    </div>
-  </Router>
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.SIGN_UP} component={SignUp} />
+        <Route path={ROUTES.SIGN_IN} component={SignIn} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        <Route path={ROUTES.HOME} component={HomePage} />
+        <Route path={ROUTES.ACCOUNT} component={Account} />
+        <Route path={ROUTES.ADMIN} component={Admin} />
+        <Route path={ROUTES.GAME_ROOM} component={GameRoom} />
+        <Route
+          path={ROUTES.WAITING_ROOM + "/:roomId"}
+          component={WaitingRoom}
+        />
+      </div>
+    </Router>
+  </div>
 );
 
 export default withAuthentication(App);

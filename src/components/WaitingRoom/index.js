@@ -6,6 +6,8 @@ import Rules from "../Rules";
 
 const Lobby = () => (
   <div>
+    {document.getElementById("background").classList.add("day")}
+    {document.getElementById("background").classList.remove("menu")}
     <AuthUserContext.Consumer>
       {(authUser) =>
         authUser ? (
