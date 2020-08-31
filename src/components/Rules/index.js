@@ -21,7 +21,12 @@ export default function Rules() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={handleClickOpen}
+        className="fadeIn3 animated"
+      >
         Rules
       </Button>
       <Dialog

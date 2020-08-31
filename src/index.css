@@ -8,9 +8,15 @@
   font-style: normal;
 }
 
-html {
+.menu {
   background: url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/474910/1f98a31d957af52b03b4972fb8d46d0722de52da.jpg);
   background-size: 100%;
+}
+
+.day {
+  background: url(https://pro2-bar-s3-cdn-cf.myportfolio.com/bf7272a8d53eb8c0faec1188fca2a40a/199f56d6-5f7f-4e64-a3d4-ae0ecb76be2f_rw_3840.jpg?h=0a2a21d4f6701d13ba3863c587e0dc7c);
+  background-size: 100%;
+  background-size: cover;
 }
 
 body {
@@ -55,11 +61,6 @@ h1 {
   text-align: center;
 }
 
-/* #button {
-  font-family: werewolf_moonregular;
-  color: #f50057;
-} */
-
 .ptext {
   color: #f50057;
 }
@@ -76,4 +77,88 @@ a {
 
 .font {
   font-family: werewolf_moonregular;
+}
+
+/*Animations*/
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+/*the animation definition*/
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    -ms-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+/*the animation definition*/
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fadeIn3 {
+  animation-delay: 2s;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.fadeIn1 {
+  animation-delay: 1s;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
 }
